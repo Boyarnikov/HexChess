@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2199462294862501228}
   - component: {fileID: 7949393187825281637}
   - component: {fileID: 4246581948342210444}
+  - component: {fileID: 3652492367320076714}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2710456755286422171}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.02, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.02, z: 0.9}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -92,7 +93,28 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5000001
+  m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3652492367320076714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2710456755286422171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 307757db767e04146bbcb33d0acc6827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transform: {fileID: 1785398417875620425}
+  _collider: {fileID: 4246581948342210444}
+  _baseColor1: {fileID: 2100000, guid: c916b7e84204e034fa6ddf124daf9eb8, type: 2}
+  _baseColor2: {fileID: 2100000, guid: 0033eb2e23584b04a913dfbcf2a0b3e5, type: 2}
+  _baseColor3: {fileID: 2100000, guid: 14cba7137fb68a54e84578be45be8b57, type: 2}
+  _inspectColor: {fileID: 2100000, guid: e7bcdd53b71b1cb4ba54ae66d8d755ee, type: 2}
+  _seltectColor: {fileID: 2100000, guid: e7bcdd53b71b1cb4ba54ae66d8d755ee, type: 2}
+  _renderer: {fileID: 7949393187825281637}
+  _hightliter: {fileID: 0}
