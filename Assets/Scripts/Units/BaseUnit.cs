@@ -18,16 +18,9 @@ public class BaseUnit : MonoBehaviour
     }
 
     public void SetTile(Tile tile) {
-        if (tile == null) {
-            Debug.Log("NULL");
+        if (tile == null || tile._unit != null) {
             return;
         }     
-        if (tile._unit != null) {
-            Debug.Log("NOT FREE");
-            return;
-        }
-        Debug.Log("START");
-        transform.position = tile.transform.position;
         if (_tile != null)
             _tile._unit = null;
         _tile = tile;

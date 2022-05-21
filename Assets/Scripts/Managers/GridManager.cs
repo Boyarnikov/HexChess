@@ -27,7 +27,7 @@ public class GridManager : MonoBehaviour
                     var tile = Instantiate(cell, offset_x + x_v * i + y_v * j, Quaternion.identity);
                     tile.name = $"Tile {i} {j}";
                     tile.InitColor(i, j);
-                    _grid[new Vector2(i, j)] = tile;
+                    _grid[new Vector2(i - board_size, j - board_size)] = tile;
                 }    
 
         GameManager.Instance.ChangeState(GameState.SpawnPlayer);

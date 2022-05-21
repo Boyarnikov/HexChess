@@ -13,7 +13,7 @@ public class UnitManager : MonoBehaviour
     {
         Instance = this;
         _units = Resources.LoadAll<ScriptableUnut>("Units").ToList();
-        Debug.Log(_units.Count);
+        Debug.Log(_units.Count.ToString() + " units loaded");
     }
 
     public void SpawnPlayer() {

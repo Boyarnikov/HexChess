@@ -54,5 +54,7 @@ public class Tile : MonoBehaviour
         }
 
         _transform.position = Vector3.Lerp(_transform.position, _ancor + lerpPosition, _hightliteSpeed);
+        if (_unit != null) 
+            _unit.transform.position =  Vector3.Lerp(_unit.transform.position, _ancor + 2 * lerpPosition, _hightliteSpeed);;
     }
 }
