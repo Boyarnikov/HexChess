@@ -18,6 +18,10 @@ public class Tile : MonoBehaviour
     private Vector3 _hightlitePos = new Vector3(0, 0.3f, 0);
     private Vector3 lerpPosition = new Vector3(0, 0, 0);
 
+    public BaseUnit _unit;
+
+    public bool Free => _unit = null;
+
     // Start is called before the first frame update
     void Start() {
         _ancor = _transform.position;

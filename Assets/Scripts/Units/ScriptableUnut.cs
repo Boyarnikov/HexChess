@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Unit", menuName = "Scriptable Unit")]
 public class ScriptableUnut : ScriptableObject
 {
-    public BaseUnit UnitPrefab;
+    public BaseUnit unitPrefab;
     public Type type;
 }
 
