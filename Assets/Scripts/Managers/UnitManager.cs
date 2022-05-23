@@ -25,6 +25,7 @@ public class UnitManager : MonoBehaviour
             Debug.Log("NULL");
         }
         hero.SetTile(tile);
+        GameManager.Instance.ChangeState(GameState.AwaitMove);
     }
 
     private T GetRandomEntity<T>(Type type) where T : BaseUnit {
