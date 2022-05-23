@@ -23,9 +23,11 @@ public class GameManager : MonoBehaviour
         switch (state)
         {
             case GameState.GenerateGrid:
+                Debug.Log("Generating Grid");
                 GridManager.Instance.GenerateGrid();
                 break;
             case GameState.SpawnPlayer:
+                Debug.Log("Spawning Player");
                 UnitManager.Instance.SpawnPlayer();
                 break;
             case GameState.SpawnEnemies:

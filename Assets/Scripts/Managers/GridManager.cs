@@ -42,7 +42,7 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        GenerateGrid();
+        
     }
 
     void Update()

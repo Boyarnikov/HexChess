@@ -18,7 +18,8 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnPlayer() {
         //var hero = Instantiate(GetRandomEnemy<BasePlayer>(Type.player));
-        var hero = Instantiate(_player);
+        //var hero = Instantiate(_player);
+        var hero = Instantiate(GetRandomEntity<BasePlayer>(Type.player));
         var tile = GridManager.Instance.GetTile(new Vector2(0, 0));
         if (tile==null) {
             Debug.Log("NULL");
@@ -26,12 +27,12 @@ public class UnitManager : MonoBehaviour
         hero.SetTile(tile);
     }
 
-    private T GetRandomEnemy<T>(Type type) where T : BaseUnit {
+    private T GetRandomEntity<T>(Type type) where T : BaseUnit {
         var enemys = from u in _units
                     where u.type.Equals(type) 
                     orderby Random.value
                     select u;
-
+        Debug.Log("found " + enemys.Count().ToString());
         T enemy = (T) enemys.First().unitPrefab;
         return enemy;
     }
