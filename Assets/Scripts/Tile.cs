@@ -13,48 +13,66 @@ public class Tile : MonoBehaviour
     private Material _color;
 
     private Vector3 _ancor;
+    private Vector2 _coordinates;
     private bool _isHightlited = false;
-    private float _hightliteSpeed = 0.1f;
-    private Vector3 _hightlitePos = new Vector3(0, 0.3f, 0);
-    private Vector3 lerpPosition = new Vector3(0, 0, 0);
+    private bool _isActive = true;
+    private Vector3 _lerpPosition = new Vector3(0, 0, 0);
+    
+    private Vector3 _hightlitedPos = new Vector3(0, 0.3f, 0);
+    private Vector3 _deactivatedPos = new Vector3(0, -10f, -20);
+    
+    private const float _hightliteSpeed = 0.1f;
 
     public BaseUnit _unit;
 
     public bool Free => _unit = null;
 
-    // Start is called before the first frame update
     void Start() {
         _ancor = _transform.position;
+        _transform.position += _deactivatedPos;
     }
 
-    public void InitColor(int pos_x, int pos_y) {
+    public void Init(int pos_x, int pos_y) {
+        _coordinates = new Vector2(pos_x, pos_y);
         _color = (new Material[] {_baseColor1, _baseColor2, _baseColor3})[(pos_x+pos_y)%3];
         _renderer.material = _color;
     }
 
-    void Update() {
-        var plane = new Plane(Vector3.up, _ancor);
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float distance;
+    void UpdatePosition() {
+        _transform.position = Vector3.Lerp(_transform.position,
+             _ancor + _lerpPosition, _hightliteSpeed);
+        if (_unit != null) 
+            _unit.transform.position = Vector3.Lerp(_unit.transform.position,
+                _ancor + 2 * _lerpPosition, _hightliteSpeed);
+    }   
 
-        if (plane.Raycast(ray, out distance)) {
-            Vector3 hitPoint = ray.GetPoint(distance);
-            distance = Vector3.Distance(hitPoint, plane.ClosestPointOnPlane(_ancor));
-            _isHightlited = (distance < 0.4f);
-            lerpPosition = new Vector3(0, 0, 0);
-            if (distance < 2f) lerpPosition = (2 - distance)/6 * _hightlitePos;
-            if (_isHightlited) {
-                lerpPosition = _hightlitePos;
-                _renderer.material = _seltectColor;
-            }
-            else {
-                _renderer.material = _color;
-            }
+    void private void OnMouseDown() {
+        if (GameManager.Instance._gamestate != GameState.AwaitMove) 
+            reutrn;
+    }
 
+    void CalculateLerp() {
+        if (!_isActive) {
+            _lerpPosition = _ancor + _deactivatedPos;
+            _isHightlited = false;
+            return;
         }
 
-        _transform.position = Vector3.Lerp(_transform.position, _ancor + lerpPosition, _hightliteSpeed);
-        if (_unit != null) 
-            _unit.transform.position =  Vector3.Lerp(_unit.transform.position, _ancor + 2 * lerpPosition, _hightliteSpeed);;
+        float distance = Vector3.Distance(GridManager.mousePos, _ancor);
+        _isHightlited = (distance < 0.4f);
+        _lerpPosition = new Vector3(0, 0, 0);
+        if (distance < 2f) _lerpPosition = (2 - distance)/6 * _hightlitedPos;
+        if (_isHightlited) {
+            _lerpPosition = _hightlitedPos;
+            _renderer.material = _seltectColor;
+        }
+        else {
+            _renderer.material = _color;
+        }
+    }
+
+    void Update() {
+        CalculateLerp();
+        UpdatePosition();
     }
 }
