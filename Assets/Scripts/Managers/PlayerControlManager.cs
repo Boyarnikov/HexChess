@@ -7,6 +7,8 @@ public class PlayerControlManager : MonoBehaviour
     public static PlayerControlManager Instance;
     public Tile hightlighted;
     public Tile lastSelected;
+    public int energy = 3;
+    public int maxEnergy = 3;
 
     void Awake()
     {
@@ -27,12 +29,28 @@ public class PlayerControlManager : MonoBehaviour
         }
     }
 
+    public void StartTurn() {
+        energy = maxEnergy;
+    }
+
     void MouseDown() {
         UnhighlighteCells();
         if (GameManager.Instance.GetState() != GameState.AwaitMove) 
             return;
+        
+        if (hightlighted != null) 
+        {
+            if (lastSelected != null && lastSelected._unit != null &&
+                    lastSelected._unit._type == Type.player) {
+                var playerFigure = lastSelected._unit;
+                if (playerFigure.GetAllMoves().Contains(hightlighted)) {
+                    playerFigure.SetTile(hightlighted);
+                }
+            }
+        }
         if (lastSelected != null) {
             lastSelected.Unselect();
+            lastSelected = null;
         }
         if (hightlighted != null) 
         {

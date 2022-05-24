@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
             case GameState.SpawnEnemies:
                 break;
             case GameState.AwaitMove:
+                PlayerControlManager.Instance.StartTurn();
                 break;
             case GameState.PlayEvents:
                 break;   

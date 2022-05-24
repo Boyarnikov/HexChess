@@ -415,3 +415,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5dcb91580fb4dd49b740e3d79950377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hightlighted: {fileID: 0}
+  lastSelected: {fileID: 0}
