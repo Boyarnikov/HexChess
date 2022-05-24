@@ -3,25 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BasePlayer : BaseUnit
-{
-    private bool _isHighlighted = false;
-    private bool _renderUpdateNeeded = false;
-    
+{ 
     [SerializeField] private Material _baseColor;
     [SerializeField] private Material _highlightedColor;
     [SerializeField] private MeshRenderer _renderer;
-
-    public override void Highlighte() {
-        _isHighlighted = true; 
-        _renderUpdateNeeded = true;
-        var moves = GetAllMoves();
-        PlayerControlManager.Instance.HighlighteCells(moves);
-    }
-
-    public override void Unhighlighte() {
-        _isHighlighted = false;
-        _renderUpdateNeeded = true;
-    }
 
     void UpdateRenderer() {
         _renderUpdateNeeded = false;
@@ -29,6 +14,10 @@ public class BasePlayer : BaseUnit
             _renderer.material = _highlightedColor;
             return;
         }
+        _renderer.material = _baseColor;
+    }
+
+    void Start() {
         _renderer.material = _baseColor;
     }
 

@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class BaseEnemy : BaseUnit
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField] private Material _baseColor;
+    [SerializeField] private Material _highlightedColor;
+    [SerializeField] private MeshRenderer _renderer;
+
+    void UpdateRenderer() {
+        _renderUpdateNeeded = false;
+        if (_isHighlighted) {
+            _renderer.material = _highlightedColor;
+            return;
+        }
+        _renderer.material = _baseColor;
     }
 
-    // Update is called once per frame
+    void Start() {
+        _renderer.material = _baseColor;
+    }
+
     void Update()
     {
-        
+        if (_renderUpdateNeeded) {UpdateRenderer();}
     }
 }

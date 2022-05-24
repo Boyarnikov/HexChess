@@ -7,7 +7,7 @@ public class PlayerControlManager : MonoBehaviour
     public static PlayerControlManager Instance;
     public Tile hightlighted;
     public Tile lastSelected;
-    public int energy = 3;
+    public int energy = 0;
     public int maxEnergy = 3;
 
     void Awake()
@@ -44,9 +44,14 @@ public class PlayerControlManager : MonoBehaviour
                     lastSelected._unit._type == Type.player) {
                 var playerFigure = lastSelected._unit;
                 if (playerFigure.GetAllMoves().Contains(hightlighted)) {
+                    if (!hightlighted.Free) {
+                        Destroy(hightlighted._unit.gameObject);
+                        hightlighted._unit = null;
+                    }
                     playerFigure.SetTile(hightlighted);
+                    energy--;
                 }
-            }
+            } 
         }
         if (lastSelected != null) {
             lastSelected.Unselect();
@@ -62,6 +67,9 @@ public class PlayerControlManager : MonoBehaviour
     void Update() {
         if (Input.GetMouseButtonDown(0)) 
             MouseDown();
+        if (energy <= 0) {
+            GameManager.Instance.ChangeState(GameState.SpawnEnemies);
+        }
     }
 }
 

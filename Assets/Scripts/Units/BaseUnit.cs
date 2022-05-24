@@ -7,9 +7,19 @@ public class BaseUnit : MonoBehaviour
     public Tile _tile;
     public Type _type;
     
+    public bool _isHighlighted = false;
+    public bool _renderUpdateNeeded = false;
+
     public virtual void Highlighte() {
+        _isHighlighted = true; 
+        _renderUpdateNeeded = true;
+        var moves = GetAllMoves();
+        PlayerControlManager.Instance.HighlighteCells(moves);
     }
+
     public virtual void Unhighlighte() {
+        _isHighlighted = false;
+        _renderUpdateNeeded = true;
     }
 
     public void SetTile(Tile tile) {
