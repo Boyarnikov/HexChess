@@ -27,16 +27,17 @@ public class BaseUnit : MonoBehaviour
     }   
 }
 
-public class Directions {
+public static class Directions {
+    public static List<Vector2> all = All();
+
     static public List<Vector2> All() {
         List<Vector2> directions = new List<Vector2>();
         directions.Add(Vector2.down);
-        directions.Add(Vector2.left);
-        directions.Add(Vector2.right);
-        directions.Add(Vector2.up);
         directions.Add(Vector2.down+Vector2.left);
+        directions.Add(Vector2.left);
+        directions.Add(Vector2.up);
         directions.Add(Vector2.right+Vector2.up);
+        directions.Add(Vector2.right);
         return directions;
     }
 }
- 
