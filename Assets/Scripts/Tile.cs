@@ -47,14 +47,15 @@ public class Tile : MonoBehaviour
         _isUnderAttack = false; 
     }
 
-    public void Highlighte() {
+    public void Select() {
         if (_isHighlighted) return;
+        PlayerControlManager.Instance.UnhighlighteCells();
         _isHighlighted = true; 
         if (_unit != null) {
             _unit.Highlighte();
         }
     }
-    public void Unhighlighte() {
+    public void Unselect() {
         if (!_isHighlighted) return;
         _isHighlighted = false;
         if (_unit != null) {
@@ -89,10 +90,10 @@ public class Tile : MonoBehaviour
         if (!_isActive) 
             return;
         if (_isSelected) {
-            Highlighte();
+            Select();
             return;
         }
-        Unhighlighte();
+        Unselect();
     }
 
     public void Deactivate() {

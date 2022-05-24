@@ -21,7 +21,6 @@ public class BasePlayer : BaseUnit
     public override void Unhighlighte() {
         _isHighlighted = false;
         _renderUpdateNeeded = true;
-        PlayerControlManager.Instance.UnhighlighteCells();
     }
 
     void UpdateRenderer() {

@@ -16,14 +16,17 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnPlayer() {
-        //var hero = Instantiate(GetRandomEnemy<BasePlayer>(Type.player));
-        //var hero = Instantiate(_player);
-        var hero = Instantiate(GetRandomEntity<BasePlayer>(Type.player));
-        var tile = GridManager.Instance.GetTile(new Vector2(0, 0));
-        if (tile==null) {
-            Debug.Log("NULL");
+        for (var i = 0; i < 10; i++) {
+            var hero = Instantiate(GetRandomEntity<BasePlayer>(Type.player));
+            var pos = new Vector2(Random.Range(-5, 6), Random.Range(-5, 6));
+            var tile = GridManager.Instance.GetTile(pos);
+            while (tile==null || !tile.Free) {
+                pos = new Vector2(Random.Range(-5, 6), Random.Range(-5, 6));
+                tile = GridManager.Instance.GetTile(pos);
+            }
+            hero.SetTile(tile);
         }
-        hero.SetTile(tile);
+
         GameManager.Instance.ChangeState(GameState.AwaitMove);
     }
 

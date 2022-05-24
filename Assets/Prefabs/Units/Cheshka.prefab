@@ -29,11 +29,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bb369965c6e06594794727cddbc73a72, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.27
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bb369965c6e06594794727cddbc73a72, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.29
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bb369965c6e06594794727cddbc73a72, type: 3}
       propertyPath: m_LocalRotation.w
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tile: {fileID: 0}
+  _type: 0
   _baseColor: {fileID: 2100000, guid: 7d4174c6851b8e146afbae2a10605c57, type: 2}
   _highlightedColor: {fileID: 2100000, guid: 90bbf6de8f8924c429b532f2d586f007, type: 2}
   _renderer: {fileID: 6896007579536345554}
