@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
                 Debug.Log("gamestate error");
                 break;
         }
-        
     }
 }
 

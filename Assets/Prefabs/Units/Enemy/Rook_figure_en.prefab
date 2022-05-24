@@ -127,6 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tile: {fileID: 0}
   _type: 1
+  _moveType: 3
+  dead: 0
   _isHighlighted: 0
   _renderUpdateNeeded: 0
   _baseColor: {fileID: 2100000, guid: b12d44866d057344d8b3cd5ce667b29c, type: 2}
