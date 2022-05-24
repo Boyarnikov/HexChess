@@ -417,3 +417,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hightlighted: {fileID: 0}
   lastSelected: {fileID: 0}
+  energy: 3
+  maxEnergy: 3

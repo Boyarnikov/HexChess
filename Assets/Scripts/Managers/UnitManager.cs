@@ -35,7 +35,6 @@ public class UnitManager : MonoBehaviour
                     where u.type.Equals(type) 
                     orderby Random.value
                     select u;
-        Debug.Log("found " + enemys.Count().ToString());
         T enemy = (T) enemys.First().unitPrefab;
         return enemy;
     }
