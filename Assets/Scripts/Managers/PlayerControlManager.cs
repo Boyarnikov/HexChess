@@ -31,9 +31,15 @@ public class PlayerControlManager : MonoBehaviour
 
     public void StartTurn() {
         energy = maxEnergy;
+        var figures = (BasePlayer[])FindObjectsOfType(typeof(BasePlayer));
+        foreach (var fig in figures)
+        {
+            fig._usedTimes = 0;
+            fig._renderUpdateNeeded = true;
+        }
     }
 
-    void MouseDown() {
+    void LeftMouseDown() {
         UnhighlighteCells();
         if (GameManager.Instance.GetState() != GameState.AwaitMove) 
             return;
@@ -42,18 +48,18 @@ public class PlayerControlManager : MonoBehaviour
         {
             if (lastSelected != null && lastSelected._unit != null &&
                     lastSelected._unit._type == Type.player) {
-                var playerFigure = lastSelected._unit;
-                if (playerFigure.GetAllMoves().Contains(hightlighted)) {
+                var playerFigure = (BasePlayer)lastSelected._unit;
+                if (playerFigure._usedTimes < playerFigure._usedTimesLimit
+                        && playerFigure.GetAllMoves().Contains(hightlighted)) {
                     if (!hightlighted.Free) {
                         var u = hightlighted._unit.gameObject;
                         hightlighted._unit._tile = null;
                         hightlighted._unit = null;
                         Destroy(u);
                     }
-                    Debug.Log("tile " + (hightlighted==null));
                     playerFigure.SetTile(hightlighted);
-                    Debug.Log("tile? " + (playerFigure._tile==null));
                     energy--;
+                    playerFigure._usedTimes++;
                 }
             } 
         }
@@ -75,9 +81,19 @@ public class PlayerControlManager : MonoBehaviour
         }
     }
 
+    void RightMouseDown() {
+        UnhighlighteCells();
+        if (lastSelected != null) {
+            lastSelected.Unselect();
+            lastSelected = null;
+        }
+    }
+
     void Update() {
         if (Input.GetMouseButtonDown(0)) 
-            MouseDown(); 
+            LeftMouseDown(); 
+        if (Input.GetMouseButtonDown(1)) 
+            RightMouseDown();
     }
 }
 

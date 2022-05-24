@@ -7,7 +7,7 @@ public class BaseUnit : MonoBehaviour
     public Tile _tile;
     public Type _type;
     public MoveType _moveType;
-    
+
     public bool dead = false;
     
     public bool _isHighlighted = false;
@@ -25,9 +25,9 @@ public class BaseUnit : MonoBehaviour
         _renderUpdateNeeded = true;
     }
 
-    public void SetTile(Tile tile) {
+    public bool SetTile(Tile tile) {
         if (tile == null || tile._unit != null) {
-            return;
+            return false;
         }     
         if (_tile != null)
             _tile._unit = null;
@@ -35,6 +35,17 @@ public class BaseUnit : MonoBehaviour
         Debug.Log(this);
         _tile._unit = this;
         Debug.Log(tile._unit);
+        return true;
+    }
+
+    public bool SnapToTile(Tile tile) {
+        if (!SetTile(tile)) {
+            return false;
+        }     
+        transform.position = tile.transform.position;
+        transform.rotation = tile.transform.rotation;
+        Debug.Log("transformes");
+        return true;
     }
 
     public virtual List<Tile> GetAllMoves() {

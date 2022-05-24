@@ -19,7 +19,7 @@ public class EnemyManager : MonoBehaviour
     public void MoveEnemies() {
         enemys = (BaseEnemy[])FindObjectsOfType(typeof(BaseEnemy));
         _isMoving = true;
-        _movingTick = -1;
+        _movingTick = -4;
         _movingSpawned = -1;
     }
 
@@ -30,7 +30,7 @@ public class EnemyManager : MonoBehaviour
                 enemys[_item].Move();
                 _movingSpawned++;
             }
-            if (_movingTick > enemys.Length) {
+            if (_movingTick > enemys.Length || enemys.Length == 0) {
                 GameManager.Instance.ChangeState(GameState.SpawnEnemies);
                 _isMoving = false;
             }

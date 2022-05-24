@@ -133,4 +133,7 @@ MonoBehaviour:
   _renderUpdateNeeded: 0
   _baseColor: {fileID: 2100000, guid: 7d4174c6851b8e146afbae2a10605c57, type: 2}
   _highlightedColor: {fileID: 2100000, guid: 90bbf6de8f8924c429b532f2d586f007, type: 2}
+  _usedColor: {fileID: 2100000, guid: c0a38e9baf3131c40a1075749a3a25f3, type: 2}
   _renderer: {fileID: 6962777929471444565}
+  _usedTimes: 0
+  _usedTimesLimit: 1

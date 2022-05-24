@@ -48,6 +48,7 @@ public class Tile : MonoBehaviour
     }
 
     public void Select() {
+        if (_unit == null) return;
         if (_isSelected) return;
         _isSelected = true; 
         if (_unit != null) {

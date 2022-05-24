@@ -17,20 +17,20 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnPlayer() {
-        int spawnRange = 3;
+        int spawnRange = 2;
         int amount = 5;
         for (var i = 0; i < amount; i++) {
             var hero = Instantiate(GetRandomEntity<BasePlayer>(Type.player));
-            var pos = new Vector2(Random.Range(-spawnRange, spawnRange+1), Random.Range(-spawnRange, spawnRange+1));
+            var pos = new Vector2(i, i);
             var tile = GridManager.Instance.GetTile(pos);
             while (tile==null || !tile.Free) {
-                pos = new Vector2(Random.Range(-spawnRange, spawnRange+1), Random.Range(-spawnRange, spawnRange+1));
+                pos = RandomEdgeCoordinate(spawnRange);
                 tile = GridManager.Instance.GetTile(pos);
             }
-            hero.SetTile(tile);
+            hero.SnapToTile(tile);
         }
 
-        GameManager.Instance.ChangeState(GameState.AwaitMove);
+        GameManager.Instance.ChangeState(GameState.SpawnEnemies);
     }
 
     public void SpawnEnemy() {
@@ -38,18 +38,19 @@ public class UnitManager : MonoBehaviour
         {
             tile.Activate();
             var hero = Instantiate(GetRandomEntity<BaseEnemy>(Type.enemy));
-            hero.SetTile(tile);
+            hero.SnapToTile(tile);
         }
     }
 
     public void PrepareTilestForEnemys(int amount) {
+        int spawnRange = 5;
         Debug.Log("enemy spawning");
         readyToSpawnEnemys = new List<Tile>();
         for (var i = 0; i < amount; i++) {
-            var pos = RandomEdgeCoordinate(5);
+            var pos = RandomEdgeCoordinate(spawnRange);
             var tile = GridManager.Instance.GetTile(pos);
             while (tile==null || !tile.Free) {
-                pos = RandomEdgeCoordinate(5);
+                pos = RandomEdgeCoordinate(spawnRange);
                 tile = GridManager.Instance.GetTile(pos);
             }
             readyToSpawnEnemys.Add(tile);
@@ -77,11 +78,11 @@ public class UnitManager : MonoBehaviour
                 break;
             case 4:
                 vec.x = Random.Range(1, edge);
-                vec.y = vec.x - 5;
+                vec.y = vec.x - edge;
                 break;
             case 5:
                 vec.y = Random.Range(1, edge);
-                vec.x = vec.y - 5;
+                vec.x = vec.y - edge;
                 break;
             default:
                 break;
