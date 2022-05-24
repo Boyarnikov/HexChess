@@ -14,13 +14,18 @@ public class BasePlayer : BaseUnit
     public override void Highlighte() {
         _isHighlighted = true; 
         _renderUpdateNeeded = true;
+        var moves = GetAllMoves();
+        PlayerControlManager.Instance.HighlighteCells(moves);
     }
+
     public override void Unhighlighte() {
         _isHighlighted = false;
         _renderUpdateNeeded = true;
-        }
+        PlayerControlManager.Instance.UnhighlighteCells();
+    }
 
     void UpdateRenderer() {
+        _renderUpdateNeeded = false;
         if (_isHighlighted) {
             _renderer.material = _highlightedColor;
             return;
@@ -30,8 +35,6 @@ public class BasePlayer : BaseUnit
 
     void Update()
     {
-        if (_renderUpdateNeeded) {
-            UpdateRenderer();
-        }
+        if (_renderUpdateNeeded) {UpdateRenderer();}
     }
 }

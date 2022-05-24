@@ -18,8 +18,9 @@ public class Tile : MonoBehaviour
     private Vector3 _ancor;                 // Якорь клетки в глобальный координатах
     private Vector2 _coordinates;           // Координаты клетки в системе поля
     private bool _isSelected = false; 
-    private bool _isHighlighted = false;     // Наведена ли мышка
+    private bool _isHighlighted = false;    // Наведена ли мышка
     private bool _isActive = true;          // Активна ли ячейка
+    private bool _isUnderAttack = false;    // Активна ли активной фигурой
 
     // Позиции для лерпа
     private Vector3 _lerpPosition = new Vector3(0, 0, 0);
@@ -36,13 +37,25 @@ public class Tile : MonoBehaviour
 
     public bool Free => _unit == null && _isActive;
 
+    public Vector2 GetCoordinates() {return _coordinates;}
+
+    public void Attack() {
+        _isUnderAttack = true; 
+    }
+
+    public void Unattack() {
+        _isUnderAttack = false; 
+    }
+
     public void Highlighte() {
+        if (_isHighlighted) return;
         _isHighlighted = true; 
         if (_unit != null) {
             _unit.Highlighte();
         }
     }
     public void Unhighlighte() {
+        if (!_isHighlighted) return;
         _isHighlighted = false;
         if (_unit != null) {
             _unit.Unhighlighte();
@@ -55,7 +68,7 @@ public class Tile : MonoBehaviour
 
     public void Init(int pos_x, int pos_y) {
         _coordinates = new Vector2(pos_x, pos_y);
-        _color = (new Material[] {_baseColor1, _baseColor2, _baseColor3})[(pos_x+pos_y)%3];
+        _color = (new Material[] {_baseColor1, _baseColor2, _baseColor3})[(pos_x+pos_y+300)%3];
         _renderer.material = _color;
     }
 
@@ -65,7 +78,7 @@ public class Tile : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, _lerpRotation, _lerpSpeed);
         if (_unit != null) {
             _unit.transform.position = Vector3.Lerp(_unit.transform.position,
-                _ancor + 1.3f * _lerpPosition, _lerpSpeed);
+                _ancor + 1.6f * _lerpPosition, _lerpSpeed);
             _unit.transform.rotation = transform.rotation;
             }
     }   
@@ -91,11 +104,11 @@ public class Tile : MonoBehaviour
             _renderer.material = _deactivatedColor;
             return;
         }
-        if (_isHighlighted) {
+        if (_isHighlighted || (_isUnderAttack && _isSelected)) {
             _renderer.material = _hightlightedColor;
             return;
         }
-        if (_isSelected) {
+        if (_isSelected || _isUnderAttack) {
             _renderer.material = _selectedColor;
             return;
         }
@@ -116,7 +129,7 @@ public class Tile : MonoBehaviour
         _isSelected = (distance < 0.4f);
         _lerpPosition = new Vector3(0, 0, 0);
         if (distance < 2f) _lerpPosition = (2 - distance)/6 * _highlightedPos;
-        if (_isSelected) {
+        if (_isSelected || _isUnderAttack) {
             _lerpPosition = _highlightedPos;
         }
         if (_isHighlighted) {
@@ -126,7 +139,7 @@ public class Tile : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetMouseButton(0)) 
+        if (Input.GetMouseButtonDown(0)) 
             MouseDown();
         CalculateLerp();
         UpdateRenderer();

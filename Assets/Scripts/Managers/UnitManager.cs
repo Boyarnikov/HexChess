@@ -7,7 +7,6 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance;
     private List<ScriptableUnut> _units;
-    [SerializeField] public BaseUnit _player;
 
     void Awake()
     {

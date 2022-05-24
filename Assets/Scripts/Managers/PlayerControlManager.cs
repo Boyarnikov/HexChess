@@ -14,14 +14,14 @@ public class PlayerControlManager : MonoBehaviour
     public void HighlighteCells(List<Tile> tiles) {
         foreach (var tile in tiles)
         {
-            tile.Highlighte();
+            tile.Attack();
         }
     }
 
     public void UnhighlighteCells() {
         var tiles = GridManager.Instance.GetAllTiles();
         foreach (var tile in tiles) {
-            tile.Unhighlighte();
+            tile.Unattack();
         }
     }
 }

@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class PlayerChesh : BasePlayer
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public override List<Tile> GetAllMoves() {
+        var list = new List<Tile>();
+        var pos = _tile.GetCoordinates();
+        foreach(var dir in Directions.All()) {
+            var tile = GridManager.Instance.GetTile(dir+pos);
+            if (tile != null) 
+                list.Add(tile);
+        }
+        return list;
+    }   
 }
