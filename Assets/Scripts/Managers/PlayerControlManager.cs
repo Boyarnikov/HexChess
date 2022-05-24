@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControlManager : MonoBehaviour
 {
     public static PlayerControlManager Instance;
+    public Tile hightlighted;
 
     void Awake()
     {
@@ -23,6 +24,18 @@ public class PlayerControlManager : MonoBehaviour
         foreach (var tile in tiles) {
             tile.Unattack();
         }
+    }
+
+    void MouseDown() {
+        if (GameManager.Instance.GetState() != GameState.AwaitMove) 
+            return;
+        if (hightlighted != null) 
+            hightlighted.Select();
+    }
+
+    void Update() {
+        if (Input.GetMouseButtonDown(0)) 
+            MouseDown();
     }
 }
 

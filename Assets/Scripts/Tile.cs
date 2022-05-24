@@ -17,8 +17,8 @@ public class Tile : MonoBehaviour
 
     private Vector3 _ancor;                 // Якорь клетки в глобальный координатах
     private Vector2 _coordinates;           // Координаты клетки в системе поля
-    private bool _isSelected = false; 
-    private bool _isHighlighted = false;    // Наведена ли мышка
+    private bool _isHighlighted = false; 
+    private bool _isSelected = false;    // Наведена ли мышка
     private bool _isActive = true;          // Активна ли ячейка
     private bool _isUnderAttack = false;    // Активна ли активной фигурой
 
@@ -48,16 +48,16 @@ public class Tile : MonoBehaviour
     }
 
     public void Select() {
-        if (_isHighlighted) return;
+        if (_isSelected) return;
         PlayerControlManager.Instance.UnhighlighteCells();
-        _isHighlighted = true; 
+        _isSelected = true; 
         if (_unit != null) {
             _unit.Highlighte();
         }
     }
     public void Unselect() {
-        if (!_isHighlighted) return;
-        _isHighlighted = false;
+        if (!_isSelected) return;
+        _isSelected = false;
         if (_unit != null) {
             _unit.Unhighlighte();
         }
@@ -89,11 +89,8 @@ public class Tile : MonoBehaviour
             return;
         if (!_isActive) 
             return;
-        if (_isSelected) {
-            Select();
-            return;
-        }
-        Unselect();
+        if (!_isHighlighted)
+            Unselect();
     }
 
     public void Deactivate() {
@@ -105,11 +102,11 @@ public class Tile : MonoBehaviour
             _renderer.material = _deactivatedColor;
             return;
         }
-        if (_isHighlighted || (_isUnderAttack && _isSelected)) {
+        if (_isSelected || (_isUnderAttack && _isHighlighted)) {
             _renderer.material = _hightlightedColor;
             return;
         }
-        if (_isSelected || _isUnderAttack) {
+        if (_isHighlighted || _isUnderAttack) {
             _renderer.material = _selectedColor;
             return;
         }
@@ -121,19 +118,19 @@ public class Tile : MonoBehaviour
         if (!_isActive) {
             _lerpPosition = _deactivatedPos;
             _lerpRotation = _deactivatedRot;
-            _isSelected = false;
+            _isHighlighted = false;
             return;
         }
 
         _lerpRotation = Quaternion.identity;
         float distance = Vector3.Distance(GridManager.mousePos, _ancor);
-        _isSelected = (distance < 0.4f);
+        _isHighlighted = (distance < 0.4f);
         _lerpPosition = new Vector3(0, 0, 0);
         if (distance < 2f) _lerpPosition = (2 - distance)/6 * _highlightedPos;
-        if (_isSelected || _isUnderAttack) {
+        if (_isHighlighted || _isUnderAttack) {
             _lerpPosition = _highlightedPos;
         }
-        if (_isHighlighted) {
+        if (_isSelected) {
             _lerpPosition = 2 * _highlightedPos;
         }
 
@@ -143,6 +140,8 @@ public class Tile : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) 
             MouseDown();
         CalculateLerp();
+        if (_isHighlighted) 
+            PlayerControlManager.Instance.hightlighted = this;
         UpdateRenderer();
         UpdatePosition();
     }
