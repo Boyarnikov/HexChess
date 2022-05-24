@@ -69,6 +69,9 @@ public class PlayerControlManager : MonoBehaviour
 
         if (energy <= 0) {
             GameManager.Instance.ChangeState(GameState.MoveEnemies);
+            lastSelected.Unselect();
+            lastSelected = null;
+            UnhighlighteCells();
         }
     }
 

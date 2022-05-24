@@ -17,8 +17,8 @@ public class Tile : MonoBehaviour
 
     private Vector3 _ancor;                 // Якорь клетки в глобальный координатах
     private Vector2 _coordinates;           // Координаты клетки в системе поля
-    private bool _isHighlighted = false; 
-    private bool _isSelected = false;    // Наведена ли мышка
+    private bool _isHighlighted = false;    // Наведена ли мышка
+    private bool _isSelected = false;       // Выбрана ли клетка
     private bool _isActive = true;          // Активна ли ячейка
     private bool _isUnderAttack = false;    // Активна ли активной фигурой
 
@@ -90,6 +90,12 @@ public class Tile : MonoBehaviour
             return;
         if (!_isHighlighted)
             Unselect();
+    }
+
+    public bool IsActive() { return _isActive; }
+
+    public void Activate() {
+        _isActive = true;
     }
 
     public void Deactivate() {

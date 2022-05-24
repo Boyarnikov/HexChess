@@ -7,6 +7,7 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance;
     private List<ScriptableUnut> _units;
+    private List<Tile> readyToSpawnEnemys = new List<Tile>();
 
     void Awake()
     {
@@ -16,12 +17,14 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnPlayer() {
-        for (var i = 0; i < 2; i++) {
+        int spawnRange = 3;
+        int amount = 5;
+        for (var i = 0; i < amount; i++) {
             var hero = Instantiate(GetRandomEntity<BasePlayer>(Type.player));
-            var pos = new Vector2(Random.Range(-5, 6), Random.Range(-5, 6));
+            var pos = new Vector2(Random.Range(-spawnRange, spawnRange+1), Random.Range(-spawnRange, spawnRange+1));
             var tile = GridManager.Instance.GetTile(pos);
             while (tile==null || !tile.Free) {
-                pos = new Vector2(Random.Range(-5, 6), Random.Range(-5, 6));
+                pos = new Vector2(Random.Range(-spawnRange, spawnRange+1), Random.Range(-spawnRange, spawnRange+1));
                 tile = GridManager.Instance.GetTile(pos);
             }
             hero.SetTile(tile);
@@ -30,17 +33,27 @@ public class UnitManager : MonoBehaviour
         GameManager.Instance.ChangeState(GameState.AwaitMove);
     }
 
-    public void SpawnEnemy(int amount) {
-        Debug.Log("enemy spawning");
-        for (var i = 0; i < amount; i++) {
+    public void SpawnEnemy() {
+        foreach (var tile in readyToSpawnEnemys) 
+        {
+            tile.Activate();
             var hero = Instantiate(GetRandomEntity<BaseEnemy>(Type.enemy));
+            hero.SetTile(tile);
+        }
+    }
+
+    public void PrepareTilestForEnemys(int amount) {
+        Debug.Log("enemy spawning");
+        readyToSpawnEnemys = new List<Tile>();
+        for (var i = 0; i < amount; i++) {
             var pos = RandomEdgeCoordinate(5);
             var tile = GridManager.Instance.GetTile(pos);
             while (tile==null || !tile.Free) {
                 pos = RandomEdgeCoordinate(5);
                 tile = GridManager.Instance.GetTile(pos);
             }
-            hero.SetTile(tile);
+            readyToSpawnEnemys.Add(tile);
+            tile.Deactivate();
         }
 
         GameManager.Instance.ChangeState(GameState.AwaitMove);

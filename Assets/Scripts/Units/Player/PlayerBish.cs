@@ -20,6 +20,7 @@ public class PlayerBish : BasePlayer
             stop = false;
             while (tile != null && !stop) {
                 if (!tile.Free) {
+                    if (tile._unit == null) break;
                     if (tile._unit._type == _type) break;
                     stop = true;
                 }

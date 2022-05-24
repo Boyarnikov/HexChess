@@ -34,7 +34,8 @@ public class GameManager : MonoBehaviour
                 UnitManager.Instance.SpawnPlayer();
                 break;
             case GameState.SpawnEnemies:
-                UnitManager.Instance.SpawnEnemy(2);
+                UnitManager.Instance.SpawnEnemy();
+                UnitManager.Instance.PrepareTilestForEnemys(2);
                 break;
             case GameState.AwaitMove:
                 PlayerControlManager.Instance.StartTurn();
