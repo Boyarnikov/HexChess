@@ -45,10 +45,14 @@ public class PlayerControlManager : MonoBehaviour
                 var playerFigure = lastSelected._unit;
                 if (playerFigure.GetAllMoves().Contains(hightlighted)) {
                     if (!hightlighted.Free) {
-                        Destroy(hightlighted._unit.gameObject);
+                        var u = hightlighted._unit.gameObject;
+                        hightlighted._unit._tile = null;
                         hightlighted._unit = null;
+                        Destroy(u);
                     }
+                    Debug.Log("tile " + (hightlighted==null));
                     playerFigure.SetTile(hightlighted);
+                    Debug.Log("tile? " + (playerFigure._tile==null));
                     energy--;
                 }
             } 
@@ -62,14 +66,15 @@ public class PlayerControlManager : MonoBehaviour
             hightlighted.Select();
             lastSelected = hightlighted;
         }
+
+        if (energy <= 0) {
+            GameManager.Instance.ChangeState(GameState.MoveEnemies);
+        }
     }
 
     void Update() {
         if (Input.GetMouseButtonDown(0)) 
-            MouseDown();
-        if (energy <= 0) {
-            GameManager.Instance.ChangeState(GameState.SpawnEnemies);
-        }
+            MouseDown(); 
     }
 }
 

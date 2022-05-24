@@ -7,6 +7,8 @@ public class BaseUnit : MonoBehaviour
     public Tile _tile;
     public Type _type;
     
+    public bool dead = false;
+    
     public bool _isHighlighted = false;
     public bool _renderUpdateNeeded = false;
 
@@ -29,7 +31,9 @@ public class BaseUnit : MonoBehaviour
         if (_tile != null)
             _tile._unit = null;
         _tile = tile;
+        Debug.Log(this);
         _tile._unit = this;
+        Debug.Log(tile._unit);
     }
 
     public virtual List<Tile> GetAllMoves() {

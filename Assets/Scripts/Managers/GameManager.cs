@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
             case GameState.PlayEvents:
                 break;   
             case GameState.MoveEnemies:
+                EnemyManager.Instance.MoveEnemies();
                 break;
             default:
                 Debug.Log("gamestate error");

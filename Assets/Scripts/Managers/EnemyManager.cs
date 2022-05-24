@@ -11,8 +11,13 @@ public class EnemyManager : MonoBehaviour
         Instance = this;
     }
 
-    void Update() {
-
+    public void MoveEnemies() {
+        BaseEnemy[] enemys = (BaseEnemy[])FindObjectsOfType(typeof(BaseEnemy));
+        foreach (var enemy in enemys)
+        {
+            enemy.Move();
+        }
+        GameManager.Instance.ChangeState(GameState.SpawnEnemies);
     }
 }
 

@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class EnemyRook : BaseEnemy
 {
-        public override List<Tile> GetAllMoves() {
+    public override List<Tile> GetAllMoves() {
+        if (_tile == null) {
+            return null;
+        }
         var pos = _tile.GetCoordinates();
         var list = new List<Tile>();
         var directions = Directions.all;
