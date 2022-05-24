@@ -6,6 +6,7 @@ public class PlayerControlManager : MonoBehaviour
 {
     public static PlayerControlManager Instance;
     public Tile hightlighted;
+    public Tile lastSelected;
 
     void Awake()
     {
@@ -27,10 +28,17 @@ public class PlayerControlManager : MonoBehaviour
     }
 
     void MouseDown() {
+        UnhighlighteCells();
         if (GameManager.Instance.GetState() != GameState.AwaitMove) 
             return;
+        if (lastSelected != null) {
+            lastSelected.Unselect();
+        }
         if (hightlighted != null) 
+        {
             hightlighted.Select();
+            lastSelected = hightlighted;
+        }
     }
 
     void Update() {

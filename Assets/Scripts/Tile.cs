@@ -49,7 +49,6 @@ public class Tile : MonoBehaviour
 
     public void Select() {
         if (_isSelected) return;
-        PlayerControlManager.Instance.UnhighlighteCells();
         _isSelected = true; 
         if (_unit != null) {
             _unit.Highlighte();
@@ -125,6 +124,9 @@ public class Tile : MonoBehaviour
         _lerpRotation = Quaternion.identity;
         float distance = Vector3.Distance(GridManager.mousePos, _ancor);
         _isHighlighted = (distance < 0.4f);
+        var h = PlayerControlManager.Instance.hightlighted;
+        if (h!= null && h == this && !_isHighlighted) 
+            PlayerControlManager.Instance.hightlighted = null;
         _lerpPosition = new Vector3(0, 0, 0);
         if (distance < 2f) _lerpPosition = (2 - distance)/6 * _highlightedPos;
         if (_isHighlighted || _isUnderAttack) {
