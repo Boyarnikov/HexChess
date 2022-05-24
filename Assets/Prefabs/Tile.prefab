@@ -109,13 +109,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307757db767e04146bbcb33d0acc6827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transform: {fileID: 1785398417875620425}
-  _collider: {fileID: 4246581948342210444}
   _baseColor1: {fileID: 2100000, guid: c916b7e84204e034fa6ddf124daf9eb8, type: 2}
   _baseColor2: {fileID: 2100000, guid: 0033eb2e23584b04a913dfbcf2a0b3e5, type: 2}
   _baseColor3: {fileID: 2100000, guid: 14cba7137fb68a54e84578be45be8b57, type: 2}
-  _inspectColor: {fileID: 2100000, guid: e7bcdd53b71b1cb4ba54ae66d8d755ee, type: 2}
-  _seltectColor: {fileID: 2100000, guid: e7bcdd53b71b1cb4ba54ae66d8d755ee, type: 2}
+  _hightlightedColor: {fileID: 2100000, guid: e7bcdd53b71b1cb4ba54ae66d8d755ee, type: 2}
+  _selectedColor: {fileID: 2100000, guid: da3e2b765c67efa478b4b884cbaf9d58, type: 2}
   _deactivatedColor: {fileID: 2100000, guid: 653e141387ad34246b95ddcbf425be20, type: 2}
   _renderer: {fileID: 7949393187825281637}
   _unit: {fileID: 0}

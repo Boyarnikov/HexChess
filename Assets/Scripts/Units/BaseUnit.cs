@@ -5,16 +5,10 @@ using UnityEngine;
 public class BaseUnit : MonoBehaviour
 {
     public Tile _tile;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    
+    public virtual void Highlighte() {
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public virtual void Unhighlighte() {
     }
 
     public void SetTile(Tile tile) {

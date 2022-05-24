@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Unity.Mathematics.math;
+using System.Linq;
 
 public class GridManager : MonoBehaviour
 {
@@ -34,6 +35,10 @@ public class GridManager : MonoBehaviour
                 }    
 
         GameManager.Instance.ChangeState(GameState.SpawnPlayer);
+    }
+
+    public List<Tile> GetAllTiles() {
+        return _grid.Values.ToList();;
     }
 
     public Tile GetTile(Vector2 pos) {
