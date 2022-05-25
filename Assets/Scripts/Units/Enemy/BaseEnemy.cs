@@ -27,12 +27,9 @@ public class BaseEnemy : BaseUnit
     }
 
     public virtual void Move() {
-        Debug.Log("I AM ALIVE");
         var moves = GetAllMoves();
-        Debug.Log("I AM ALIVE!");
         if (moves == null) return;
         var move = moves[Random.Range(0, moves.Count)];
-        Debug.Log("I AM ALIVE!!!");
         if (move == null) return;
         if (move._unit == null || move._unit != null && move._unit._type != _type) {
             if (!move.Free) {

@@ -158,21 +158,25 @@ public static class Directions {
             distances[dir] = dist;
         }
 
-        //for ()
-        foreach(var dir in Directions.all) {
+        for (var i = 0; i < 6; i++) {
+            var dir = Directions.all[i];
             if (distances[dir] > mindist) continue;
             var tile = GridManager.Instance.GetTile(dir+pos);
             if (tile != null && tile.Free) 
                 list.Add(tile);
-            
+            var diag = Directions.all[(i + 1) % 6];
+            tile = GridManager.Instance.GetTile(diag+pos);
+            if (tile != null && tile._unit != null && tile._unit._type == Type.enemy) 
+                list.Add(tile);
+            diag = Directions.all[(i + 5) % 6];
+            tile = GridManager.Instance.GetTile(diag+pos);
+            if (tile != null && tile._unit != null && tile._unit._type == Type.enemy) 
+                list.Add(tile);
         }
         return list;
     }
 
     static public List<Tile> ChechFromEdgeMoves(Type _type, Tile _tile) {
-        if (_tile == null) {
-            return new List<Tile>();
-        }
         var list = new List<Tile>();
         var pos = _tile.GetCoordinates();
         int mindist = 100;
@@ -189,16 +193,29 @@ public static class Directions {
             distances[dir] = dist;
         }
 
-        foreach(var dir in Directions.all) {
-            if (distances[dir] > mindist) continue;
+        for (var i = 0; i < 6; i++) {
+            var dir = Directions.all[i];
+            if (distances[dir] < mindist) continue;
             var tile = GridManager.Instance.GetTile(dir+pos);
             if (tile != null && tile.Free) 
+                list.Add(tile);
+            var diag = Directions.all[(i + 1) % 6];
+            tile = GridManager.Instance.GetTile(diag+pos);
+            if (tile != null && tile._unit != null && tile._unit._type == Type.enemy) 
+                list.Add(tile);
+            diag = Directions.all[(i + 5) % 6];
+            tile = GridManager.Instance.GetTile(diag+pos);
+            if (tile != null && tile._unit != null && tile._unit._type == Type.enemy) 
                 list.Add(tile);
         }
         return list;
     }
 
+
     static public List<Tile> GetMoves(Type _type, MoveType _moveType, Tile _fromTile) {
+        if (_fromTile == null) {
+            return new List<Tile>();
+        }
         switch (_moveType)
         {
             case MoveType.Rook:

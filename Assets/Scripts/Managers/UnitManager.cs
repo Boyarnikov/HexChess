@@ -34,7 +34,7 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SummonEntety(Type type, MoveType moveType, Vector2 pos) {
-        var hero = Instantiate(GetPlayerPiece<BasePlayer>(type, moveType));
+        var hero = Instantiate(GetPlayerPiece<BaseUnit>(type, moveType));
         var tile = GridManager.Instance.GetTile(pos);
         hero.SnapToTile(tile);
         //if (!hero.SnapToTile(tile))
@@ -54,6 +54,9 @@ public class UnitManager : MonoBehaviour
         SummonEntety(Type.player, MoveType.Fool,            new Vector2(2, 0));
         SummonEntety(Type.player, MoveType.Knight,          new Vector2(1, 1));
         SummonEntety(Type.player, MoveType.Rook,            new Vector2(1, 0));
+
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(-4, -4));
+        SummonEntety(Type.enemy, MoveType.Rook,             new Vector2(-4, -3));
 
         GameManager.Instance.ChangeState(GameState.SpawnEnemies);
     }
