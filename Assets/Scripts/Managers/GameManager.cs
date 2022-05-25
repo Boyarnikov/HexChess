@@ -5,8 +5,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    private GameState _gamestate;
-    // Start is called before the first frame update
+    private static GameState _gamestate;
+    
+    public GameState GetState() {
+        return _gamestate;
+    }
 
     void Awake() {
         Instance = this;
@@ -31,12 +34,15 @@ public class GameManager : MonoBehaviour
                 UnitManager.Instance.SpawnPlayer();
                 break;
             case GameState.SpawnEnemies:
+                UnitManager.Instance.SpawnEnemy(2);
                 break;
             case GameState.AwaitMove:
+                PlayerControlManager.Instance.StartTurn();
                 break;
             case GameState.PlayEvents:
                 break;   
             case GameState.MoveEnemies:
+                EnemyManager.Instance.MoveEnemies();
                 break;
             default:
                 Debug.Log("gamestate error");

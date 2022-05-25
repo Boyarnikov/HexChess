@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBish : BasePlayer
+public class EnemyRook : BaseEnemy
 {
-        public override List<Tile> GetAllMoves() {
+    public override List<Tile> GetAllMoves() {
+        if (_tile == null) {
+            return null;
+        }
         var pos = _tile.GetCoordinates();
         var list = new List<Tile>();
-        var dirs = Directions.all;
-        var directions = new List<Vector2>();
-        for (var i = 0; i < dirs.Count; i++) {
-            directions.Add(dirs[i] + dirs[(i+1)%dirs.Count]);
-        }
+        var directions = Directions.all;
         Tile tile = null;
         bool stop = false;
         foreach (Vector2 dir in directions) {
