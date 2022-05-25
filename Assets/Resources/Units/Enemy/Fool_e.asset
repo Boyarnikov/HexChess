@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c44c7745bcb25e445af9152fd1a12956, type: 3}
-  m_Name: King_p
+  m_Name: Fool_p
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: -841841434551576231, guid: a05b5272f66ee1b4ca2ddb947ed3d9aa, type: 3}
+  unitPrefab: {fileID: 1705339371305586024, guid: ba4433e1fb8ee5349a9e2c1587acb6f0, type: 3}
   type: 0
-  _moveType: 6
+  _moveType: 2

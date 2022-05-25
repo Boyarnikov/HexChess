@@ -16,7 +16,7 @@ public class UnitManager : MonoBehaviour
         Debug.Log(_units.Count.ToString() + " units loaded");
     }
 
-    public void SpawnPlayer() {
+    public void SpawnPlayerRandom() {
         int spawnRange = 2;
         int amount = 5;
         for (var i = 0; i < amount; i++) {
@@ -29,6 +29,31 @@ public class UnitManager : MonoBehaviour
             }
             hero.SnapToTile(tile);
         }
+
+        GameManager.Instance.ChangeState(GameState.SpawnEnemies);
+    }
+
+    public void SummonEntety(Type type, MoveType moveType, Vector2 pos) {
+        var hero = Instantiate(GetPlayerPiece<BasePlayer>(type, moveType));
+        var tile = GridManager.Instance.GetTile(pos);
+        hero.SnapToTile(tile);
+        //if (!hero.SnapToTile(tile))
+        //    Destroy(hero.gameo);
+    }
+
+    public void SpawnPlayer() {
+        SummonEntety(Type.player, MoveType.King,            new Vector2(0, 0));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(-1, 0));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(0, 1));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(2, 2));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(2, 1));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(0, -1));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(1, -1));
+        SummonEntety(Type.player, MoveType.Fool,            new Vector2(-1, -1));
+        SummonEntety(Type.player, MoveType.Fool,            new Vector2(1, 2));
+        SummonEntety(Type.player, MoveType.Fool,            new Vector2(2, 0));
+        SummonEntety(Type.player, MoveType.Knight,          new Vector2(1, 1));
+        SummonEntety(Type.player, MoveType.Rook,            new Vector2(1, 0));
 
         GameManager.Instance.ChangeState(GameState.SpawnEnemies);
     }
@@ -93,6 +118,16 @@ public class UnitManager : MonoBehaviour
     private T GetRandomEntity<T>(Type type) where T : BaseUnit {
         var enemys = from u in _units
                     where u.type.Equals(type) 
+                    orderby Random.value
+                    select u;
+        T enemy = (T) enemys.First().unitPrefab;
+        return enemy;
+    }
+
+    private T GetPlayerPiece<T>(Type type, MoveType moveType) where T : BaseUnit {
+        var enemys = from u in _units
+                    where u.type.Equals(type) 
+                    where u._moveType.Equals(moveType)
                     orderby Random.value
                     select u;
         T enemy = (T) enemys.First().unitPrefab;

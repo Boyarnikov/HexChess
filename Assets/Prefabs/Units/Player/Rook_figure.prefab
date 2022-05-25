@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tile: {fileID: 0}
   _type: 0
-  _moveType: 3
+  _moveType: 4
   dead: 0
   _isHighlighted: 0
   _renderUpdateNeeded: 0

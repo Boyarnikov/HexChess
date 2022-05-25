@@ -119,13 +119,60 @@ public static class Directions {
 
         foreach(var dir in Directions.all) {
             var tile = GridManager.Instance.GetTile(dir+pos);
-            if (tile != null && (tile.Free || tile._unit != null && tile._unit._type != Type.player)) 
+            if (tile != null && (tile.Free || tile._unit != null && tile._unit._type != _type)) 
+                list.Add(tile);
+        }
+        return list;
+    }
+
+    static public List<Tile> KnightMoves(Type _type, Tile _tile) {
+        var list = new List<Tile>();
+        var pos = _tile.GetCoordinates();
+
+        for (var i = 0; i < 6; i++) {
+            var dir = Directions.all[i];
+            var tile = GridManager.Instance.GetTile(dir*2+pos +  Directions.all[(i + 1) % 6]);
+            if (tile != null && (tile.Free || tile._unit != null && tile._unit._type != _type)) 
+                list.Add(tile);
+            tile = GridManager.Instance.GetTile(dir*2+pos +  Directions.all[(i + 5) % 6]);
+            if (tile != null && (tile.Free || tile._unit != null && tile._unit._type != _type)) 
                 list.Add(tile);
         }
         return list;
     }
 
     static public List<Tile> ChechFromCenterMoves(Type _type, Tile _tile) {
+        var list = new List<Tile>();
+        var pos = _tile.GetCoordinates();
+        int mindist = 100;
+        var distances = new Dictionary<Vector2, int>();
+
+        foreach(var dir in Directions.all) {
+            var dist = 0;
+            var inPos = pos;
+            while (GridManager.Instance.GetTile(inPos) != null) {
+                inPos += dir;
+                dist ++;
+            }
+            mindist = Mathf.Min(dist, mindist);
+            distances[dir] = dist;
+        }
+
+        //for ()
+        foreach(var dir in Directions.all) {
+            if (distances[dir] > mindist) continue;
+            var tile = GridManager.Instance.GetTile(dir+pos);
+            if (tile != null && tile.Free) 
+                list.Add(tile);
+            
+        }
+        return list;
+    }
+
+    static public List<Tile> ChechFromEdgeMoves(Type _type, Tile _tile) {
+        if (_tile == null) {
+            return new List<Tile>();
+        }
         var list = new List<Tile>();
         var pos = _tile.GetCoordinates();
         int mindist = 100;
@@ -162,6 +209,8 @@ public static class Directions {
                 return FoolMoves(_type, _fromTile);
             case MoveType.ChechFromCenter:
                 return ChechFromCenterMoves(_type, _fromTile);
+            case MoveType.Knight:
+                return KnightMoves(_type, _fromTile);
             default:
                 return new List<Tile>();
         }

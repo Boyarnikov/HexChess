@@ -19,6 +19,7 @@ public enum MoveType {
     ChechFromCenter,
     ChechFromEdge,
     Fool,
+    Knight,
     Rook,
     Queen,
     King

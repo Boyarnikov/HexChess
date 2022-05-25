@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2918191891582174967}
-  - component: {fileID: -841841434551576231}
+  - component: {fileID: 197051907167005758}
   m_Layer: 0
-  m_Name: King_figure
+  m_Name: King_figure_en
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-841841434551576231
+--- !u!114 &197051907167005758
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,21 +41,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2536741262638062669}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dfaaf8b8ddfca849976de30bdf5c05e, type: 3}
+  m_Script: {fileID: 11500000, guid: 905fac1ffeaec6b43869fe630b047616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _tile: {fileID: 0}
-  _type: 0
+  _type: 1
   _moveType: 6
   dead: 0
   _isHighlighted: 0
   _renderUpdateNeeded: 0
-  _baseColor: {fileID: 2100000, guid: 7d4174c6851b8e146afbae2a10605c57, type: 2}
-  _highlightedColor: {fileID: 2100000, guid: 90bbf6de8f8924c429b532f2d586f007, type: 2}
-  _usedColor: {fileID: 2100000, guid: c0a38e9baf3131c40a1075749a3a25f3, type: 2}
+  _baseColor: {fileID: 2100000, guid: b12d44866d057344d8b3cd5ce667b29c, type: 2}
+  _highlightedColor: {fileID: 2100000, guid: b12d44866d057344d8b3cd5ce667b29c, type: 2}
   _renderer: {fileID: 4178532723710913137}
-  _usedTimes: 0
-  _usedTimesLimit: 1
 --- !u!1 &6825657532908659860
 GameObject:
   m_ObjectHideFlags: 0
