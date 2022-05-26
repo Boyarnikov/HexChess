@@ -60,9 +60,19 @@ public class BaseEnemy : BaseUnit
                 if (best_move == EstimatCost(m._unit._moveType)) {
                     newMoves.Add(m);
                 }
+            } else {
+                if (best_move == 0) {
+                    newMoves.Add(m);
+                }
             }
         }
-        move = newMoves[Random.Range(0, newMoves.Count)];
+        Debug.Log("praculc" + newMoves.Count);
+        
+        int mm = Random.Range(0, newMoves.Count - 1);
+        Debug.Log("praculcs" + mm);
+        if (newMoves.Count == 0) return;
+        move = newMoves[mm];
+        Debug.Log("praculc");
         if (move == null) return;
         if (move._unit == null || move._unit != null && move._unit._type != _type) {
             if (!move.Free) {
@@ -71,5 +81,6 @@ public class BaseEnemy : BaseUnit
             }
             SetTile(move);
         } 
+        Debug.Log("moved suc");
     }
 }

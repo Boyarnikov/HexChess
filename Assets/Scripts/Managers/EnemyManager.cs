@@ -6,10 +6,12 @@ public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager Instance;
     private bool _isMoving = false;
-    private float _movingTick = 0;
-    private float _movingDelta = 0.02f;
-    private int _movingSpawned = 0;
-    private BaseEnemy[] enemys;
+    private float _timer = 0;
+    private float _timerDelta = 0.02f;
+    private float _timerTime = 1f;
+    private float _timerSetup = 1f;
+    private int _enemyInd = 0;
+    private List<BaseEnemy> enemys;
 
     void Awake()
     {
@@ -17,24 +19,41 @@ public class EnemyManager : MonoBehaviour
     }
 
     public void MoveEnemies() {
-        enemys = (BaseEnemy[])FindObjectsOfType(typeof(BaseEnemy));
         _isMoving = true;
-        _movingTick = -4;
-        _movingSpawned = -1;
+        _timer = -_timerSetup;
+        _enemyInd = -2;
+    }
+
+    public void getEnemies() {
+        enemys = new List<BaseEnemy>();
+        BaseEnemy[] e = (BaseEnemy[])FindObjectsOfType(typeof(BaseEnemy));
+        foreach (var enemy in e)
+        {
+            enemys.Add(enemy);
+        }
+        Debug.Log("get enemys " + enemys.Count);
     }
 
     private void Update() {
         if (_isMoving) {
-            int _item = (int)_movingTick;
-            if (_movingSpawned < _item && _item >= 0 && _item < enemys.Length) {
-                enemys[_item].Move();
-                _movingSpawned++;
+            _timer += _timerDelta;
+            if (_timer > _timerTime) {
+                _timer = 0;
+                Debug.Log("id " + _enemyInd);
+                if (_enemyInd >= 0 && _enemyInd < enemys.Count) {
+                    Debug.Log("moving enemy " + _enemyInd);
+                    var enemy = enemys[_enemyInd];
+                    Debug.Log(enemy);
+                    enemy.Move();
+                }
+                _enemyInd++;
+                if (_enemyInd == -1) getEnemies();
+
+                if (_enemyInd >= enemys.Count) {
+                    _isMoving = false;
+                    GameManager.Instance.ChangeState(GameState.SpawnEnemies);
+                }
             }
-            if (_movingTick > enemys.Length || enemys.Length == 0) {
-                GameManager.Instance.ChangeState(GameState.SpawnEnemies);
-                _isMoving = false;
-            }
-            _movingTick += _movingDelta;
         }
     }
 }

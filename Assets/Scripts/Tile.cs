@@ -11,6 +11,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private Material _hightlightedColor;
     [SerializeField] private Material _selectedColor;
     [SerializeField] private Material _deactivatedColor;
+    [SerializeField] private Material _underAttackColor;
     [SerializeField] private MeshRenderer _renderer;
 
     private Material _color;                // Базовый цвет клетки
@@ -110,6 +111,10 @@ public class Tile : MonoBehaviour
         }
         if (_isSelected || (_isUnderAttack && _isHighlighted)) {
             _renderer.material = _hightlightedColor;
+            return;
+        }
+        if (_isUnderAttack && _unit != null) {
+            _renderer.material = _underAttackColor;
             return;
         }
         if (_isHighlighted || _isUnderAttack) {

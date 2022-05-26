@@ -115,5 +115,6 @@ MonoBehaviour:
   _hightlightedColor: {fileID: 2100000, guid: e7bcdd53b71b1cb4ba54ae66d8d755ee, type: 2}
   _selectedColor: {fileID: 2100000, guid: da3e2b765c67efa478b4b884cbaf9d58, type: 2}
   _deactivatedColor: {fileID: 2100000, guid: 653e141387ad34246b95ddcbf425be20, type: 2}
+  _underAttackColor: {fileID: 2100000, guid: ae8841636ca5be446970fa6d89b8a811, type: 2}
   _renderer: {fileID: 7949393187825281637}
   _unit: {fileID: 0}
