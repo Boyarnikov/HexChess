@@ -11,14 +11,15 @@ public class Tile : MonoBehaviour
     [SerializeField] private Material _hightlightedColor;
     [SerializeField] private Material _selectedColor;
     [SerializeField] private Material _deactivatedColor;
+    [SerializeField] private Material _underAttackColor;
     [SerializeField] private MeshRenderer _renderer;
 
     private Material _color;                // Базовый цвет клетки
 
     private Vector3 _ancor;                 // Якорь клетки в глобальный координатах
     private Vector2 _coordinates;           // Координаты клетки в системе поля
-    private bool _isHighlighted = false; 
-    private bool _isSelected = false;    // Наведена ли мышка
+    private bool _isHighlighted = false;    // Наведена ли мышка
+    private bool _isSelected = false;       // Выбрана ли клетка
     private bool _isActive = true;          // Активна ли ячейка
     private bool _isUnderAttack = false;    // Активна ли активной фигурой
 
@@ -48,6 +49,7 @@ public class Tile : MonoBehaviour
     }
 
     public void Select() {
+        if (_unit == null) return;
         if (_isSelected) return;
         _isSelected = true; 
         if (_unit != null) {
@@ -92,6 +94,12 @@ public class Tile : MonoBehaviour
             Unselect();
     }
 
+    public bool IsActive() { return _isActive; }
+
+    public void Activate() {
+        _isActive = true;
+    }
+
     public void Deactivate() {
         _isActive = false;
     }
@@ -103,6 +111,10 @@ public class Tile : MonoBehaviour
         }
         if (_isSelected || (_isUnderAttack && _isHighlighted)) {
             _renderer.material = _hightlightedColor;
+            return;
+        }
+        if (_isUnderAttack && _unit != null) {
+            _renderer.material = _underAttackColor;
             return;
         }
         if (_isHighlighted || _isUnderAttack) {

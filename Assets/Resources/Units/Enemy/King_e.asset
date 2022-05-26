@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c44c7745bcb25e445af9152fd1a12956, type: 3}
-  m_Name: King_p
+  m_Name: King_e
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: -841841434551576231, guid: a05b5272f66ee1b4ca2ddb947ed3d9aa, type: 3}
-  type: 0
+  unitPrefab: {fileID: 197051907167005758, guid: 38fa3ddad1a58db468f4d1dccd54917c, type: 3}
+  type: 1
   _moveType: 6

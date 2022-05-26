@@ -7,6 +7,7 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance;
     private List<ScriptableUnut> _units;
+    private List<Tile> readyToSpawnEnemys = new List<Tile>();
 
     void Awake()
     {
@@ -15,32 +16,73 @@ public class UnitManager : MonoBehaviour
         Debug.Log(_units.Count.ToString() + " units loaded");
     }
 
-    public void SpawnPlayer() {
-        for (var i = 0; i < 2; i++) {
+    public void SpawnPlayerRandom() {
+        int spawnRange = 2;
+        int amount = 5;
+        for (var i = 0; i < amount; i++) {
             var hero = Instantiate(GetRandomEntity<BasePlayer>(Type.player));
-            var pos = new Vector2(Random.Range(-5, 6), Random.Range(-5, 6));
+            var pos = new Vector2(i, i);
             var tile = GridManager.Instance.GetTile(pos);
             while (tile==null || !tile.Free) {
-                pos = new Vector2(Random.Range(-5, 6), Random.Range(-5, 6));
+                pos = RandomEdgeCoordinate(spawnRange);
                 tile = GridManager.Instance.GetTile(pos);
             }
-            hero.SetTile(tile);
+            hero.SnapToTile(tile);
         }
 
-        GameManager.Instance.ChangeState(GameState.AwaitMove);
+        GameManager.Instance.ChangeState(GameState.SpawnEnemies);
     }
 
-    public void SpawnEnemy(int amount) {
-        Debug.Log("enemy spawning");
-        for (var i = 0; i < amount; i++) {
+    public void SummonEntety(Type type, MoveType moveType, Vector2 pos) {
+        var hero = Instantiate(GetPlayerPiece<BaseUnit>(type, moveType));
+        var tile = GridManager.Instance.GetTile(pos);
+        hero.SnapToTile(tile);
+        //if (!hero.SnapToTile(tile))
+        //    Destroy(hero.gameo);
+    }
+
+    public void SpawnPlayer() {
+        SummonEntety(Type.player, MoveType.King,            new Vector2(0, 0));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(-1, 0));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(0, 1));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(2, 2));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(2, 1));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(0, -1));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(1, -1));
+        SummonEntety(Type.player, MoveType.Fool,            new Vector2(-1, -1));
+        SummonEntety(Type.player, MoveType.Fool,            new Vector2(1, 2));
+        SummonEntety(Type.player, MoveType.Fool,            new Vector2(2, 0));
+        SummonEntety(Type.player, MoveType.Knight,          new Vector2(1, 1));
+        SummonEntety(Type.player, MoveType.Rook,            new Vector2(1, 0));
+
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(-4, -4));
+        SummonEntety(Type.enemy, MoveType.Rook,             new Vector2(-4, -3));
+
+        GameManager.Instance.ChangeState(GameState.SpawnEnemies);
+    }
+
+    public void SpawnEnemy() {
+        foreach (var tile in readyToSpawnEnemys) 
+        {
+            tile.Activate();
             var hero = Instantiate(GetRandomEntity<BaseEnemy>(Type.enemy));
-            var pos = RandomEdgeCoordinate(5);
+            hero.SnapToTile(tile);
+        }
+    }
+
+    public void PrepareTilestForEnemys(int amount) {
+        int spawnRange = 5;
+        Debug.Log("enemy spawning");
+        readyToSpawnEnemys = new List<Tile>();
+        for (var i = 0; i < amount; i++) {
+            var pos = RandomEdgeCoordinate(spawnRange);
             var tile = GridManager.Instance.GetTile(pos);
             while (tile==null || !tile.Free) {
-                pos = RandomEdgeCoordinate(5);
+                pos = RandomEdgeCoordinate(spawnRange);
                 tile = GridManager.Instance.GetTile(pos);
             }
-            hero.SetTile(tile);
+            readyToSpawnEnemys.Add(tile);
+            tile.Deactivate();
         }
 
         GameManager.Instance.ChangeState(GameState.AwaitMove);
@@ -64,11 +106,11 @@ public class UnitManager : MonoBehaviour
                 break;
             case 4:
                 vec.x = Random.Range(1, edge);
-                vec.y = vec.x - 5;
+                vec.y = vec.x - edge;
                 break;
             case 5:
                 vec.y = Random.Range(1, edge);
-                vec.x = vec.y - 5;
+                vec.x = vec.y - edge;
                 break;
             default:
                 break;
@@ -79,6 +121,16 @@ public class UnitManager : MonoBehaviour
     private T GetRandomEntity<T>(Type type) where T : BaseUnit {
         var enemys = from u in _units
                     where u.type.Equals(type) 
+                    orderby Random.value
+                    select u;
+        T enemy = (T) enemys.First().unitPrefab;
+        return enemy;
+    }
+
+    private T GetPlayerPiece<T>(Type type, MoveType moveType) where T : BaseUnit {
+        var enemys = from u in _units
+                    where u.type.Equals(type) 
+                    where u._moveType.Equals(moveType)
                     orderby Random.value
                     select u;
         T enemy = (T) enemys.First().unitPrefab;

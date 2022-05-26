@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bb369965c6e06594794727cddbc73a72, type: 3}
       propertyPath: m_Name
-      value: Cheshka_figure
+      value: Cheshka_figure_en
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: bb369965c6e06594794727cddbc73a72, type: 3}
       propertyPath: m_Name
@@ -83,7 +83,7 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: bb369965c6e06594794727cddbc73a72, type: 3}
   m_PrefabInstance: {fileID: 5313001168960160447}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8077630284434058687
+--- !u!114 &-3609653762331032372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,18 +92,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5006590703520071662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb7c2ad001de95419f6eb33023ea07a, type: 3}
+  m_Script: {fileID: 11500000, guid: 04f960ad6a4c35b43b35acce67e19f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _tile: {fileID: 0}
-  _type: 0
-  _moveType: 0
+  _type: 1
+  _moveType: 1
   dead: 0
   _isHighlighted: 0
   _renderUpdateNeeded: 0
-  _baseColor: {fileID: 2100000, guid: 7d4174c6851b8e146afbae2a10605c57, type: 2}
-  _highlightedColor: {fileID: 2100000, guid: 90bbf6de8f8924c429b532f2d586f007, type: 2}
-  _usedColor: {fileID: 2100000, guid: c0a38e9baf3131c40a1075749a3a25f3, type: 2}
+  _baseColor: {fileID: 2100000, guid: b12d44866d057344d8b3cd5ce667b29c, type: 2}
+  _highlightedColor: {fileID: 2100000, guid: b12d44866d057344d8b3cd5ce667b29c, type: 2}
   _renderer: {fileID: 6896007579536345554}
-  _usedTimes: 0
-  _usedTimesLimit: 1
