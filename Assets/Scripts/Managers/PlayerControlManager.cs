@@ -60,8 +60,8 @@ public class PlayerControlManager : MonoBehaviour
                     playerFigure.SetTile(hightlighted);
                     energy--;
                     playerFigure._usedTimes++;
+                    return;
                 }
-                hightlighted.Unselect();
             } 
         }
         if (lastSelected != null) {

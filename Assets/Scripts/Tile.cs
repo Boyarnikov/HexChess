@@ -25,7 +25,6 @@ public class Tile : MonoBehaviour
     private bool _isSelected = false;       // Выбрана ли клетка
     private bool _isActive = true;          // Активна ли ячейка
     private bool _isUnderAttack = false;    // Активна ли активной фигурой
-    private float _selectionCooldown = 0f;
 
     // Позиции для лерпа
     private Vector3 _lerpPosition = new Vector3(0, 0, 0);
@@ -162,14 +161,7 @@ public class Tile : MonoBehaviour
 
     }
 
-    void SetSelectCooldown(float time) {
-        _selectionCooldown = time;
-    }
-
     void Update() {
-        if (_selectionCooldown > 0) {
-            _selectCooldown-= 0.1;
-        }
         if (Input.GetMouseButtonDown(0)) 
             MouseDown();
         CalculateLerp();
