@@ -61,6 +61,7 @@ public class PlayerControlManager : MonoBehaviour
                     energy--;
                     playerFigure._usedTimes++;
                 }
+                hightlighted.Unselect();
             } 
         }
         if (lastSelected != null) {

@@ -14,6 +14,9 @@ public class Tile : MonoBehaviour
     [SerializeField] private Material _underAttackColor;
     [SerializeField] private MeshRenderer _renderer;
 
+    GameObject cam;
+    GridManager grid;
+
     private Material _color;                // Базовый цвет клетки
 
     private Vector3 _ancor;                 // Якорь клетки в глобальный координатах
@@ -22,6 +25,7 @@ public class Tile : MonoBehaviour
     private bool _isSelected = false;       // Выбрана ли клетка
     private bool _isActive = true;          // Активна ли ячейка
     private bool _isUnderAttack = false;    // Активна ли активной фигурой
+    private float _selectionCooldown = 0f;
 
     // Позиции для лерпа
     private Vector3 _lerpPosition = new Vector3(0, 0, 0);
@@ -66,6 +70,8 @@ public class Tile : MonoBehaviour
 
     void Start() {
         _ancor = transform.position;
+        cam = GameObject.Find("Main Camera");
+        grid = GameObject.Find("Board Logic").GetComponent<GridManager>();
     }
 
     public void Init(int pos_x, int pos_y) {
@@ -81,7 +87,13 @@ public class Tile : MonoBehaviour
         if (_unit != null) {
             _unit.transform.position = Vector3.Lerp(_unit.transform.position,
                 _ancor + 1.6f * _lerpPosition, _lerpSpeed);
-            _unit.transform.rotation = transform.rotation;
+            
+            Quaternion rot = transform.rotation;
+            if (_isSelected) 
+                rot *= Quaternion.AngleAxis(30, cam.transform.position - grid.GetMid());
+
+            _unit.transform.rotation = Quaternion.Lerp(_unit.transform.rotation,
+                rot, _lerpSpeed);
             }
     }   
 
@@ -150,7 +162,14 @@ public class Tile : MonoBehaviour
 
     }
 
+    void SetSelectCooldown(float time) {
+        _selectionCooldown = time;
+    }
+
     void Update() {
+        if (_selectionCooldown > 0) {
+            _selectCooldown-= 0.1;
+        }
         if (Input.GetMouseButtonDown(0)) 
             MouseDown();
         CalculateLerp();

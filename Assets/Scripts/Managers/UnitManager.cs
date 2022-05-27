@@ -55,7 +55,7 @@ public class UnitManager : MonoBehaviour
         SummonEntety(Type.player, MoveType.Knight,          new Vector2(1, 1));
         SummonEntety(Type.player, MoveType.Rook,            new Vector2(1, 0));
 
-        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(-4, -4));
+        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(-2, -2));
         SummonEntety(Type.enemy, MoveType.Rook,             new Vector2(-4, -3));
 
         GameManager.Instance.ChangeState(GameState.SpawnEnemies);
