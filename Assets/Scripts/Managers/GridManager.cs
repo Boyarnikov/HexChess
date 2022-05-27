@@ -48,6 +48,10 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
+    public Vector3 GetMid() {
+        return -board_size * x_v / 2 + (x_v + y_v) * board_size;
+    }
+
     void UpdateMousePosition() 
     {
         float distance;
