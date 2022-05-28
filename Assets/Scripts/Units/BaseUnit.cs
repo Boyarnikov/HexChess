@@ -32,9 +32,7 @@ public class BaseUnit : MonoBehaviour
         if (_tile != null)
             _tile._unit = null;
         _tile = tile;
-        Debug.Log(this);
         _tile._unit = this;
-        Debug.Log(tile._unit);
         return true;
     }
 
@@ -44,7 +42,6 @@ public class BaseUnit : MonoBehaviour
         }     
         transform.position = tile.transform.position;
         transform.rotation = tile.transform.rotation;
-        Debug.Log("transformes");
         return true;
     }
 

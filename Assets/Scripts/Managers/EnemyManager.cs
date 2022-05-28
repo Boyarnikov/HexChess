@@ -19,6 +19,7 @@ public class EnemyManager : MonoBehaviour
     }
 
     public void MoveEnemies() {
+        Debug.Log("Enemy Moving");
         _isMoving = true;
         _timer = -_timerSetup;
         _enemyInd = -2;
@@ -31,7 +32,6 @@ public class EnemyManager : MonoBehaviour
         {
             enemys.Add(enemy);
         }
-        Debug.Log("get enemys " + enemys.Count);
     }
 
     private void Update() {
@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour
             if (_timer > _timerTime) {
                 _timer = 0;
                 Debug.Log("id " + _enemyInd);
-                if (_enemyInd >= 0 && _enemyInd < enemys.Count) {
+                if (enemys != null && _enemyInd >= 0 && _enemyInd < enemys.Count) {
                     Debug.Log("moving enemy " + _enemyInd);
                     var enemy = enemys[_enemyInd];
                     Debug.Log(enemy);

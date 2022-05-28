@@ -135,7 +135,6 @@ public class Tile : MonoBehaviour
         _renderer.material = _color;
     }
 
-
     void CalculateLerp() {
         if (!_isActive) {
             _lerpPosition = _deactivatedPos;
