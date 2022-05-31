@@ -70,7 +70,7 @@ public class Tile : MonoBehaviour
     void Start() {
         _ancor = transform.position;
         cam = GameObject.Find("Main Camera");
-        grid = GameObject.Find("Board Logic").GetComponent<GridManager>();
+        grid = GameObject.Find("Board Manager").GetComponent<GridManager>();
     }
 
     public void Init(int pos_x, int pos_y) {
@@ -88,6 +88,9 @@ public class Tile : MonoBehaviour
                 _ancor + 1.6f * _lerpPosition, _lerpSpeed);
             
             Quaternion rot = transform.rotation;
+            
+            //rot *= Quaternion.AngleAxis(10, Vector3.Cross(cam.transform.position - grid.GetMid(), Vector3.up));
+            
             if (_isSelected) 
                 rot *= Quaternion.AngleAxis(30, cam.transform.position - grid.GetMid());
 
@@ -163,10 +166,14 @@ public class Tile : MonoBehaviour
     void Update() {
         if (Input.GetMouseButtonDown(0)) 
             MouseDown();
-        CalculateLerp();
         if (_isHighlighted) 
             PlayerControlManager.Instance.hightlighted = this;
         UpdateRenderer();
         UpdatePosition();
     }
+
+    void FixedUpdate() {
+        CalculateLerp();
+    }
 }
+

@@ -197,4 +197,5 @@ MonoBehaviour:
   _deactivatedColor: {fileID: 2100000, guid: 653e141387ad34246b95ddcbf425be20, type: 2}
   _underAttackColor: {fileID: 2100000, guid: ae8841636ca5be446970fa6d89b8a811, type: 2}
   _renderer: {fileID: 4916700273560071664}
+  cam: {fileID: 0}
   _unit: {fileID: 0}

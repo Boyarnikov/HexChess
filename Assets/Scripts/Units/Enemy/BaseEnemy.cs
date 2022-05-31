@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BaseEnemy : BaseUnit
 {
-    [SerializeField] private Material _baseColor;
-    [SerializeField] private Material _highlightedColor;
-    [SerializeField] private MeshRenderer _renderer;
+    private Material _baseColor;
+    private Material _highlightedColor;
+    private MeshRenderer _renderer;
 
     void UpdateRenderer() {
         _renderUpdateNeeded = false;
@@ -18,6 +18,10 @@ public class BaseEnemy : BaseUnit
     }
 
     void Start() {
+        _baseColor = UnitManager.Instance._enemyColor;
+        _highlightedColor = UnitManager.Instance._enemyColor;
+        _renderer = transform.Find("Mesh").gameObject.GetComponent<MeshRenderer>();
+        _type = Type.enemy;
         _renderer.material = _baseColor;
     }
 
@@ -66,13 +70,9 @@ public class BaseEnemy : BaseUnit
                 }
             }
         }
-        Debug.Log("praculc" + newMoves.Count);
-        
         int mm = Random.Range(0, newMoves.Count - 1);
-        Debug.Log("praculcs" + mm);
         if (newMoves.Count == 0) return;
         move = newMoves[mm];
-        Debug.Log("praculc");
         if (move == null) return;
         if (move._unit == null || move._unit != null && move._unit._type != _type) {
             if (!move.Free) {
@@ -81,6 +81,5 @@ public class BaseEnemy : BaseUnit
             }
             SetTile(move);
         } 
-        Debug.Log("moved suc");
     }
 }

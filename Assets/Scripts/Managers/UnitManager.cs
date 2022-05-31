@@ -4,7 +4,14 @@ using UnityEngine;
 using System.Linq;
 
 public class UnitManager : MonoBehaviour
+
 {
+    [SerializeField] public Material _playerBaseColor;
+    [SerializeField] public Material _playerHighlightedColor;
+    [SerializeField] public Material _playerUsedColor;
+    [SerializeField] public Material _enemyColor;
+
+
     public static UnitManager Instance;
     private List<ScriptableUnut> _units;
     private List<Tile> readyToSpawnEnemys = new List<Tile>();

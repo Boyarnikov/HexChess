@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 1278898312}
   - component: {fileID: 1278898311}
   m_Layer: 0
-  m_Name: Board Logic
+  m_Name: Board Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

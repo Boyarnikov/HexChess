@@ -41,18 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2993802967271801372}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc981c22af8438c45b21a668b48deb5d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f33c415b3e2c6a428acc3ae3e9d6a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _tile: {fileID: 0}
-  _type: 1
   _moveType: 3
   dead: 0
   _isHighlighted: 0
   _renderUpdateNeeded: 0
-  _baseColor: {fileID: 2100000, guid: b12d44866d057344d8b3cd5ce667b29c, type: 2}
-  _highlightedColor: {fileID: 2100000, guid: b12d44866d057344d8b3cd5ce667b29c, type: 2}
-  _renderer: {fileID: 3694480070199702560}
 --- !u!1 &6053352537709116101
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +108,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7d4174c6851b8e146afbae2a10605c57, type: 2}
+  - {fileID: 2100000, guid: b12d44866d057344d8b3cd5ce667b29c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

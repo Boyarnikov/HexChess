@@ -7,9 +7,9 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager Instance;
     private bool _isMoving = false;
     private float _timer = 0;
-    private float _timerDelta = 0.02f;
+    private float _timerDelta = 0.05f;
     private float _timerTime = 1f;
-    private float _timerSetup = 1f;
+    private float _timerSetup = 0f;
     private int _enemyInd = 0;
     private List<BaseEnemy> enemys;
 
@@ -34,7 +34,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         if (_isMoving) {
             _timer += _timerDelta;
             if (_timer > _timerTime) {

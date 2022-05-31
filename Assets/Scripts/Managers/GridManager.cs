@@ -28,8 +28,10 @@ public class GridManager : MonoBehaviour
         for (var i = 0; i < board_size * 2 + 1; i++)
             for (var j = 0; j < board_size * 2 + 1; j++)
                 if (abs(i-j) <= board_size) {
-                    var tile = Instantiate(cell, offset_x + 
-                        x_v * (i - board_size) + y_v * (j - board_size), Quaternion.identity);
+                    var tile = Instantiate(cell,
+                        offset_x + x_v * (i - board_size) + 
+                        y_v * (j - board_size), Quaternion.identity,
+                        transform);
                     tile.name = $"Tile {i - board_size} {j - board_size}";
                     tile.Init(i - board_size, j - board_size);
                     _grid[new Vector2(i - board_size, j - board_size)] = tile;
