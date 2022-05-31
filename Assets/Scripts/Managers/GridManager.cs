@@ -11,7 +11,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] public Tile cell;
     [SerializeField] private Vector3 x_v = new Vector3(1f, 0, 0);
     [SerializeField] private Vector3 y_v = new Vector3(-0.5f, 0, 0.866f);
-    [SerializeField] private int board_size = 5;
+    [SerializeField] public int board_size = 5;
     
     public static Vector3 mousePos = new Vector3(0, 0, 0);
     private Dictionary<Vector2, Tile> _grid;
@@ -24,11 +24,12 @@ public class GridManager : MonoBehaviour
 
     public void GenerateGrid() {
         _grid = new Dictionary<Vector2, Tile>();
-        var offset_x = -board_size * x_v / 2;
+        var offset_x = GetMid();
         for (var i = 0; i < board_size * 2 + 1; i++)
             for (var j = 0; j < board_size * 2 + 1; j++)
                 if (abs(i-j) <= board_size) {
-                    var tile = Instantiate(cell, offset_x + x_v * i + y_v * j, Quaternion.identity);
+                    var tile = Instantiate(cell, offset_x + 
+                        x_v * (i - board_size) + y_v * (j - board_size), Quaternion.identity);
                     tile.name = $"Tile {i - board_size} {j - board_size}";
                     tile.Init(i - board_size, j - board_size);
                     _grid[new Vector2(i - board_size, j - board_size)] = tile;

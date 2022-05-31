@@ -55,9 +55,6 @@ public class UnitManager : MonoBehaviour
         SummonEntety(Type.player, MoveType.Knight,          new Vector2(1, 1));
         SummonEntety(Type.player, MoveType.Rook,            new Vector2(1, 0));
 
-        SummonEntety(Type.player, MoveType.ChechFromCenter, new Vector2(-2, -2));
-        SummonEntety(Type.enemy, MoveType.Rook,             new Vector2(-4, -3));
-
         GameManager.Instance.ChangeState(GameState.SpawnEnemies);
     }
 
@@ -71,7 +68,7 @@ public class UnitManager : MonoBehaviour
     }
 
     public void PrepareTilestForEnemys(int amount) {
-        int spawnRange = 5;
+        int spawnRange = GridManager.Instance.board_size;
         Debug.Log("enemy spawning");
         readyToSpawnEnemys = new List<Tile>();
         for (var i = 0; i < amount; i++) {

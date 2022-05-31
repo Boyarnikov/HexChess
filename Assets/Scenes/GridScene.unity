@@ -379,7 +379,7 @@ MonoBehaviour:
   cell: {fileID: 4332364730588083903, guid: 447ad26e27eeba24db315ed18001a171, type: 3}
   x_v: {x: 1, y: 0, z: 0}
   y_v: {x: -0.5, y: 0, z: 0.866}
-  board_size: 5
+  board_size: 4
 --- !u!4 &1278898312
 Transform:
   m_ObjectHideFlags: 0
