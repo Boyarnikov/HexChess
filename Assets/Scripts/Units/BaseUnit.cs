@@ -32,9 +32,7 @@ public class BaseUnit : MonoBehaviour
         if (_tile != null)
             _tile._unit = null;
         _tile = tile;
-        Debug.Log(this);
         _tile._unit = this;
-        Debug.Log(tile._unit);
         return true;
     }
 
@@ -44,7 +42,6 @@ public class BaseUnit : MonoBehaviour
         }     
         transform.position = tile.transform.position;
         transform.rotation = tile.transform.rotation;
-        Debug.Log("transformes");
         return true;
     }
 
@@ -64,6 +61,18 @@ public static class Directions {
         directions.Add(Vector2.up);
         directions.Add(Vector2.right+Vector2.up);
         directions.Add(Vector2.right);
+        return directions;
+    }
+
+    static public List<Vector2> Diagonals(Vector2 d) {
+        List<Vector2> directions = new List<Vector2>();
+        for (int i = 0; i < 6; i++)
+        {
+            if (d == all[i]) {
+                directions.Add(all[(i + 1) % 6] + d);
+                directions.Add(all[(i + 5) % 6] + d);
+            }
+        }
         return directions;
     }
 
@@ -121,6 +130,12 @@ public static class Directions {
             var tile = GridManager.Instance.GetTile(dir+pos);
             if (tile != null && (tile.Free || tile._unit != null && tile._unit._type != _type)) 
                 list.Add(tile);
+            foreach (var diag in Diagonals(dir))
+            {
+                tile = GridManager.Instance.GetTile(diag+pos);
+                if (tile != null && (tile.Free || tile._unit != null && tile._unit._type != _type)) 
+                    list.Add(tile);
+            }
         }
         return list;
     }
@@ -164,14 +179,13 @@ public static class Directions {
             var tile = GridManager.Instance.GetTile(dir+pos);
             if (tile != null && tile.Free) 
                 list.Add(tile);
-            var diag = Directions.all[(i + 1) % 6];
-            tile = GridManager.Instance.GetTile(diag+pos);
-            if (tile != null && tile._unit != null && tile._unit._type == Type.enemy) 
-                list.Add(tile);
-            diag = Directions.all[(i + 5) % 6];
-            tile = GridManager.Instance.GetTile(diag+pos);
-            if (tile != null && tile._unit != null && tile._unit._type == Type.enemy) 
-                list.Add(tile);
+
+            foreach (var diag in Diagonals(dir))
+            {
+                tile = GridManager.Instance.GetTile(diag+pos);
+                if (tile != null && tile._unit != null && tile._unit._type == Type.enemy) 
+                    list.Add(tile);
+            }
         }
         return list;
     }

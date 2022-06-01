@@ -74,10 +74,11 @@ public class PlayerControlManager : MonoBehaviour
         }
 
         if (energy <= 0) {
-            GameManager.Instance.ChangeState(GameState.MoveEnemies);
-            lastSelected.Unselect();
+            if (lastSelected != null)
+                lastSelected.Unselect();
             lastSelected = null;
             UnhighlighteCells();
+            GameManager.Instance.ChangeState(GameState.MoveEnemies);
         }
     }
 
